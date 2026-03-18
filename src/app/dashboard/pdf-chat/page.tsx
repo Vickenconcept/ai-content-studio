@@ -15,6 +15,19 @@ type UiMessage = {
 
 const COLLAPSED_SOURCE_COUNT = 3;
 
+function normalizeTags(input: unknown): string[] {
+  if (Array.isArray(input)) {
+    return input.filter((v) => typeof v === "string").map((v) => v.trim()).filter(Boolean);
+  }
+  if (typeof input === "string") {
+    return input
+      .split(/[,;|]/g)
+      .map((v) => v.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
 function truncateText(input: string | undefined, maxLength: number): string {
   if (!input) {
     return "";
@@ -394,7 +407,7 @@ export default function PdfChatPage() {
                                     </span>
                                   ) : null}
 
-                                  {source.tags?.slice(0, 4).map((tag) => (
+                                  {normalizeTags(source.tags).slice(0, 4).map((tag) => (
                                     <span
                                       key={`${message.id}-${source.document_id}-${tag}`}
                                       className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-2 py-0.5 text-[10px] text-cyan-100"
@@ -403,9 +416,9 @@ export default function PdfChatPage() {
                                     </span>
                                   ))}
 
-                                  {source.tags && source.tags.length > 4 ? (
+                                  {normalizeTags(source.tags).length > 4 ? (
                                     <span className="rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] text-white/65">
-                                      +{source.tags.length - 4} tags
+                                      +{normalizeTags(source.tags).length - 4} tags
                                     </span>
                                   ) : null}
                                 </div>
