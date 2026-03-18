@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Content Studio (Additional Frontend #1)
 
-## Getting Started
+Content Studio is a focused Next.js frontend built on your existing KHub backend.
 
-First, run the development server:
+## Problem Solved
+
+Users have valuable PDFs, notes, and course files, but cannot quickly convert them into publish-ready campaigns.
+
+This app solves that by turning selected documents into:
+- social posts
+- email drafts
+- blog outlines
+- campaign pack assets
+
+## Backend APIs Used
+
+- Core auth: `POST /api/auth/login`, `POST /api/auth/register`
+- Core docs: `GET /api/documents`
+- Addition v1 generation: `POST /api/addition/v1/content/generate`
+
+## Local Setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create `.env.local`:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+NEXT_PUBLIC_CLIENT_APP=content_studio_web
+```
+
+3. Run dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## App Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Landing page: `src/app/page.tsx`
+- Login: `src/app/login/page.tsx`
+- Register: `src/app/register/page.tsx`
+- Dashboard with sidebar + generator UI: `src/app/dashboard/page.tsx`
+- API integration layer: `src/lib/api-client.ts`
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Registration is tagged by client app via `X-Client-App` and `registered_from`.
+- This frontend is intentionally focused for product-market testing and JVZoo launch experiments.

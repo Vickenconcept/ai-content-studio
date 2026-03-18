@@ -3,6 +3,8 @@
 :root {
   --background: #080d14;
   --foreground: #eef7ff;
+  --font-manrope: "Trebuchet MS", "Segoe UI", "Tahoma", sans-serif;
+  --font-space-grotesk: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
 }
 
 @theme inline {
